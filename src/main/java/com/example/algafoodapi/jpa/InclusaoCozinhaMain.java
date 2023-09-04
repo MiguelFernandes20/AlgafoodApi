@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 
 import java.util.List;
 
-public class ConsultaCozinhaMain {
+public class InclusaoCozinhaMain {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
                 .web(WebApplicationType.NONE)
@@ -18,11 +18,14 @@ public class ConsultaCozinhaMain {
 
         CozinhaRepository cozinhaRepository = applicationContext.getBean(CozinhaRepository.class);
 
-        List<Cozinha> cozinhas = cozinhaRepository.listar();
+        Cozinha cozinha1 = new Cozinha();
+        cozinha1.setNome("Brasileira");
 
-        for (Cozinha cozinha : cozinhas){
-            System.out.println(cozinha.getNome());
-        }
+        Cozinha cozinha2 = new Cozinha();
+        cozinha2.setNome("Japonesa");
+
+        cozinhaRepository.salvar(cozinha1);
+        cozinhaRepository.salvar(cozinha2);
 
     }
 }
