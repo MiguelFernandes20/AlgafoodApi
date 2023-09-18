@@ -5,11 +5,12 @@ import com.example.algafoodapi.domain.model.Restaurante;
 
 import java.util.List;
 
-public interface RestauranteRepository {
+public interface RestauranteRepository
+    {
     List<Restaurante> listar();
     Restaurante buscar(Long id);
     Restaurante salvar(Restaurante restaurante);
     void remover(Restaurante restaurante);
 
-}
+    }
 

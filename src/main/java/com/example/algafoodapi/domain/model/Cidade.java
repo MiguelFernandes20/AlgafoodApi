@@ -7,8 +7,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode (onlyExplicitlyIncluded = true)
 @Entity
-public class Cidade {
-
+public class Cidade
+    {
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +20,4 @@ public class Cidade {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Estado estado;
-}
+    }

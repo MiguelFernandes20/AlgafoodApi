@@ -10,33 +10,32 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Component
-public class RestauranteRepositoryImpl implements RestauranteRepository  {
-
+public class RestauranteRepositoryImpl implements RestauranteRepository
+    {
     @PersistenceContext
     private EntityManager manager;
-
     @Override
-    public List<Restaurante> listar(){
+    public List<Restaurante> listar()
+        {
         return manager.createQuery("SELECT c FROM Restaurante c", Restaurante.class)
                 .getResultList();
-    }
-
+        }
     @Override
-    public Restaurante buscar(Long id){
+    public Restaurante buscar(Long id)
+        {
         return manager.find(Restaurante.class, id);
-    }
-
+        }
     @Transactional
     @Override
-    public  Restaurante salvar(Restaurante restaurante){
+    public  Restaurante salvar(Restaurante restaurante)
+        {
         return manager.merge(restaurante);
-    }
-
-
+        }
     @Transactional
     @Override
-    public void remover(Restaurante restaurante){
+    public void remover(Restaurante restaurante)
+        {
         restaurante = buscar(restaurante.getId());
         manager.remove(restaurante);
+        }
     }
-}

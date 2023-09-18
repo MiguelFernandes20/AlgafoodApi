@@ -7,7 +7,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Estado {
+public class Estado
+    {
 
     @EqualsAndHashCode.Include
     @Id
@@ -17,4 +18,4 @@ public class Estado {
     @Column(nullable = false)
     private String nome;
 
-}
+    }

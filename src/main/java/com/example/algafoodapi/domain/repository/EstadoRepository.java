@@ -4,7 +4,8 @@ import com.example.algafoodapi.domain.model.Estado;
 
 import java.util.List;
 
-public interface EstadoRepository {
+public interface EstadoRepository
+    {
 
     List<Estado> listar ();
 
@@ -14,4 +15,4 @@ public interface EstadoRepository {
 
     void remover (Estado estado);
 
-}
+    }

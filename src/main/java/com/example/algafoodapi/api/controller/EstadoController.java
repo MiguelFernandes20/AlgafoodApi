@@ -11,14 +11,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/estados")
-public class EstadoController {
-
+public class EstadoController
+    {
     @Autowired
     private EstadoRepository estadoRepository;
 
     @GetMapping
-    public List<Estado> listar(){
+    public List<Estado> listar()
+        {
         return estadoRepository.listar();
-    }
+        }
 
-}
+    }

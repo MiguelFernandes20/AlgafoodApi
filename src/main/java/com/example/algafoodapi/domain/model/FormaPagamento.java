@@ -7,8 +7,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class FormaPagamento {
-
+public class FormaPagamento
+    {
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +17,4 @@ public class FormaPagamento {
     @Column(nullable = false)
     private String descricao;
 
-
-}
+    }

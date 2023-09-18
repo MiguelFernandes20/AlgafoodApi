@@ -11,34 +11,32 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Component
-public class PermissaoRepositoryImpl implements PermissaoRepository {
-
+public class PermissaoRepositoryImpl implements PermissaoRepository
+    {
     @PersistenceContext
     private EntityManager manager;
-
     @Override
-    public List<Permissao> listar(){
+    public List<Permissao> listar()
+        {
         return manager.createQuery("SELECT c FROM Permissao c", Permissao.class)
                 .getResultList();
-    }
-
+        }
     @Override
-    public Permissao buscar(Long id){
+    public Permissao buscar(Long id)
+        {
         return manager.find(Permissao.class, id);
-    }
-
+        }
     @Transactional
     @Override
-    public  Permissao salvar(Permissao permissao){
+    public  Permissao salvar(Permissao permissao)
+        {
         return manager.merge(permissao);
-    }
-
-
+        }
     @Transactional
     @Override
-    public void remover(Permissao permissao){
+    public void remover(Permissao permissao)
+        {
         permissao = buscar(permissao.getId());
         manager.remove(permissao);
+        }
     }
-
-}
