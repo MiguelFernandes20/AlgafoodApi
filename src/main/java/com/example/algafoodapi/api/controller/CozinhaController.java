@@ -18,7 +18,6 @@ import java.util.List;
 @RequestMapping("/cozinhas")
 public class CozinhaController
     {
-
     @Autowired
     private CozinhaRepository cozinhaRepository;
 
