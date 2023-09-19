@@ -22,7 +22,7 @@ public class CadastroCozinhaService
         return cozinhaRepository.salvar(cozinha);
         }
 
-    public void excluir(Long cozinhaId)
+    public void excluir (Long cozinhaId)
         {
         try
             {
@@ -31,7 +31,7 @@ public class CadastroCozinhaService
             } catch (EmptyResultDataAccessException e)
             {
             throw new EntidadeNaoEncontradaException(
-            String.format("Não existe um cadastro de cozinha com co´digo %d" , cozinhaId));
+            String.format("Não existe um cadastro de cozinha com coódigo %d" , cozinhaId));
 
             } catch (DataIntegrityViolationException e)
             {
