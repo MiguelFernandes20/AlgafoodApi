@@ -3,6 +3,7 @@ package com.example.algafoodapi.api.controller;
 import com.example.algafoodapi.domain.exception.EntidadeEmUsoException;
 import com.example.algafoodapi.domain.exception.EntidadeNaoEncontradaException;
 import com.example.algafoodapi.domain.model.Cozinha;
+import com.example.algafoodapi.domain.model.Restaurante;
 import com.example.algafoodapi.domain.repository.CozinhaRepository;
 import com.example.algafoodapi.domain.service.CadastroCozinhaService;
 import org.springframework.beans.BeanUtils;
@@ -51,19 +52,19 @@ public class CozinhaController
         }
 
     @PutMapping("/{cozinhaId}")
-    public ResponseEntity<Cozinha> atualizar(@PathVariable Long cozinhaId, @RequestBody Cozinha cozinha)
+        public ResponseEntity<Cozinha> atualizar(@PathVariable Long cozinhaId, @RequestBody Cozinha cozinha)
         {
-        Cozinha cozinhaAtual = cozinhaRepository.buscar(cozinhaId);
+            Cozinha cozinhaAtual = cozinhaRepository.buscar(cozinhaId);
 
-        if (cozinhaAtual != null)
+            if (cozinhaAtual != null)
             {
-            BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
+                BeanUtils.copyProperties(cozinha, cozinhaAtual , "id");
 
-           cozinhaAtual = CadastroCozinhaService.salvar(cozinhaAtual);
-            return ResponseEntity.ok(cozinhaAtual);
+               cozinhaAtual = cadastroCozinhaService.salvar(cozinhaAtual);
+                return ResponseEntity.ok(cozinhaAtual);
             }
 
-        return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();
         }
 
     @DeleteMapping("/{cozinhaId}")

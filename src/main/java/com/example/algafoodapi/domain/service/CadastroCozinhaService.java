@@ -17,7 +17,9 @@ public class CadastroCozinhaService
     @Autowired
     private static CozinhaRepository cozinhaRepository;
 
-    public static Cozinha salvar(Cozinha cozinha)
+
+
+    public  Cozinha salvar(Cozinha cozinha)
         {
         return cozinhaRepository.salvar(cozinha);
         }
