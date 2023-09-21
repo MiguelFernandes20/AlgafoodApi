@@ -74,7 +74,8 @@ public class EstadoController
                 cadastroEstadoService.excluir(estadoId);
                 return ResponseEntity.noContent().build();
 
-                } catch (EntidadeNaoEncontradaException e) {
+                } catch (EntidadeNaoEncontradaException e)
+            {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(e.getMessage());
             } catch (EntidadeEmUsoException e) {
