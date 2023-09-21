@@ -1,6 +1,7 @@
 package com.example.algafoodapi.infrastructure.repository;
 
 import com.example.algafoodapi.domain.model.Cozinha;
+import com.example.algafoodapi.domain.model.Estado;
 import com.example.algafoodapi.domain.repository.CozinhaRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -27,12 +28,14 @@ public class CozinhaRepositoryImpl implements CozinhaRepository
         {
         return manager.find(Cozinha.class, id);
         }
+
     @Transactional
     @Override
     public  Cozinha salvar(Cozinha cozinha)
         {
         return manager.merge(cozinha);
         }
+
     @Transactional
     @Override
     public void remover(Long id)
@@ -41,8 +44,9 @@ public class CozinhaRepositoryImpl implements CozinhaRepository
 
         if (cozinha == null)
             {
-            throw  new EmptyResultDataAccessException(1);
+            throw new EmptyResultDataAccessException(1);
             }
+
         manager.remove(cozinha);
         }
     }

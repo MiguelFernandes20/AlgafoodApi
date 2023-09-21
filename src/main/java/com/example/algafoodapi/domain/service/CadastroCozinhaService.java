@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 public class CadastroCozinhaService
     {
     @Autowired
-    private static CozinhaRepository cozinhaRepository;
-
-
+    private  CozinhaRepository cozinhaRepository;
 
     public  Cozinha salvar(Cozinha cozinha)
         {

@@ -29,17 +29,20 @@ public class EstadoRepositoryImpl implements EstadoRepository {
 
     @Transactional
     @Override
-    public Estado salvar(Estado estado) {
+    public Estado salvar(Estado estado)
+        {
         return manager.merge(estado);
-    }
+        }
     @Transactional
     @Override
-    public void remover(Long id) {
+    public void remover(Long id)
+        {
         Estado estado = buscar(id);
 
-        if (estado == null) {
+        if (estado == null)
+            {
             throw new EmptyResultDataAccessException(1);
-        }
+            }
 
         manager.remove(estado);
     }
