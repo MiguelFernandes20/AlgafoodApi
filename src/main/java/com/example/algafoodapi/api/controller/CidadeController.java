@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/cidades")
@@ -26,16 +27,16 @@ public class CidadeController
         @GetMapping
         public List<Cidade> listar()
         {
-            return cidadeRepository.listar();
+            return cidadeRepository.findAll();
         }
 
         @GetMapping("/{cidadesId}")
         public ResponseEntity<Cidade> buscar (@PathVariable Long cidadesId)
         {
-            Cidade cidade = cidadeRepository.buscar(cidadesId);
-            if (cidade != null)
+            Optional <Cidade> cidade = cidadeRepository.findById(cidadesId);
+            if (cidade.isPresent())
             {
-                return  ResponseEntity.status(HttpStatus.OK).body(cidade);
+                return  ResponseEntity.ok(cidade.get());
             }
             return ResponseEntity.status(HttpStatus.FOUND).build();
         }
@@ -55,14 +56,14 @@ public class CidadeController
         @PutMapping("/{cidadeId}")
         public ResponseEntity<Cidade> atualizar (@PathVariable Long cidadeId, @RequestBody Cidade cidade)
         {
-            Cidade cidadeAtual = cidadeRepository.buscar(cidadeId);
+            Optional <Cidade> cidadeAtual = cidadeRepository.findById(cidadeId);
 
-            if (cidadeAtual != null)
+            if (cidadeAtual.isPresent())
             {
-                BeanUtils.copyProperties(cidade, cidadeAtual , "id");
+                BeanUtils.copyProperties(cidade, cidadeAtual.get(), "id");
 
-                cidadeAtual = cadastroCidadeService.salvar(cidadeAtual);
-                return  ResponseEntity.ok(cidadeAtual);
+                Cidade cidadeSalva = cadastroCidadeService.salvar(cidadeAtual.get());
+                return  ResponseEntity.ok(cidadeSalva);
             }
             return  ResponseEntity.notFound().build();
         }
@@ -71,7 +72,7 @@ public class CidadeController
         public ResponseEntity<?> remover (@PathVariable Long cidadeId)
         {
             try {
-                cadastroCidadeService.excluir(cidadeId);
+                cadastroCidadeService.remover(cidadeId);
                 return ResponseEntity.noContent().build();
 
             }catch (EntidadeNaoEncontradaException e)
