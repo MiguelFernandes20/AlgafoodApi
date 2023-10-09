@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/restaurantes")
@@ -27,17 +28,17 @@ public class RestauranteController
         @GetMapping
         public List<Restaurante> listar()
             {
-            return restauranteRepository.listar();
+            return restauranteRepository.findAll();
             }
         @GetMapping("/{restauranteId}")
         public ResponseEntity<Restaurante> buscar (@PathVariable Long restauranteId)
             {
-            Restaurante restaurante = restauranteRepository.buscar(restauranteId);
-            if (restaurante != null)
+            Optional <Restaurante> restaurante = restauranteRepository.findById(restauranteId);
+            if (restaurante.isPresent())
                 {
-                return  ResponseEntity.status(HttpStatus.OK).body(restaurante);
+                return  ResponseEntity.ok(restaurante.get());
                 }
-            return ResponseEntity.status(HttpStatus.FOUND).build();
+            return ResponseEntity.notFound().build();
             }
         @PostMapping
 
@@ -55,14 +56,14 @@ public class RestauranteController
         @PutMapping("/{restauranteId}")
         public ResponseEntity<Restaurante> atualizar(@PathVariable Long restauranteId, @RequestBody Restaurante restaurante)
             {
-            Restaurante restauranteAtual = restauranteRepository.buscar(restauranteId);
+            Optional <Restaurante> restauranteAtual = restauranteRepository.findById(restauranteId);
 
-            if (restauranteAtual != null)
+            if (restauranteAtual.isPresent())
                 {
                 BeanUtils.copyProperties(restaurante, restauranteAtual , "id");
 
-                restauranteAtual = cadastroRestauranteService.salvar(restauranteAtual);
-                return ResponseEntity.ok(restauranteAtual);
+                Restaurante restaurantesalvar = cadastroRestauranteService.salvar(restauranteAtual.get());
+                return ResponseEntity.ok(restaurantesalvar);
                 }
 
             return ResponseEntity.notFound().build();

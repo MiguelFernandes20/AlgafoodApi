@@ -51,32 +51,29 @@ public class EstadoController
             return cadastroEstadoService.salvar(estado);
         }
 
-    @PutMapping("/{estadoId}")
+        @PutMapping("/{estadoId}")
         public ResponseEntity<Estado> atualizar(@PathVariable Long estadoId,
-                                                @RequestBody Estado estado)
-        {
-            Optional <Estado> estadoAtual = estadoRepository.findById(estadoId);
+                                                @RequestBody Estado estado) {
+            Optional<Estado> estadoAtualOptional = estadoRepository.findById(estadoId);
 
-            if (estadoAtual.isPresent())
-                {
+            if (estadoAtualOptional.isPresent()) {
+                Estado estadoAtual = estadoAtualOptional.get();
+
                 BeanUtils.copyProperties(estado, estadoAtual, "id");
 
-                Estado estadoSalva = cadastroEstadoService.salvar(estadoAtual.get());
-                return ResponseEntity.ok(estadoSalva);
-                }
+                Estado estadoSalvo = cadastroEstadoService.salvar(estadoAtual);
+                return ResponseEntity.ok(estadoSalvo);
+            }
 
             return ResponseEntity.notFound().build();
         }
-    @DeleteMapping("/{estadoId}")
-        public ResponseEntity<?> remover(@PathVariable Long estadoId)
-        {
-            try
-                {
+
+        @DeleteMapping("/{estadoId}")
+        public ResponseEntity<?> remover(@PathVariable Long estadoId) {
+            try {
                 cadastroEstadoService.excluir(estadoId);
                 return ResponseEntity.noContent().build();
-
-                } catch (EntidadeNaoEncontradaException e)
-            {
+            } catch (EntidadeNaoEncontradaException e) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(e.getMessage());
             } catch (EntidadeEmUsoException e) {
@@ -86,4 +83,4 @@ public class EstadoController
         }
 
 
-    }
+        }
