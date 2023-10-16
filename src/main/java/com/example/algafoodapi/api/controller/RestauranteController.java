@@ -1,5 +1,6 @@
 package com.example.algafoodapi.api.controller;
 
+import com.example.algafoodapi.domain.exception.EntidadeEmUsoException;
 import com.example.algafoodapi.domain.exception.EntidadeNaoEncontradaException;
 import com.example.algafoodapi.domain.model.Cozinha;
 import com.example.algafoodapi.domain.model.Restaurante;
@@ -68,6 +69,24 @@ public class RestauranteController
 
             return ResponseEntity.notFound().build();
             }
+
+        @DeleteMapping("/{restauranteId}")
+        public ResponseEntity<?> remover (@PathVariable Long restauranteId)
+        {
+            try {
+                cadastroRestauranteService.excluir(restauranteId);
+                return ResponseEntity.noContent().build();
+
+            }catch (EntidadeNaoEncontradaException e)
+            {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(e.getMessage());
+
+            }catch (EntidadeEmUsoException e){
+                return  ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body(e.getMessage());
+            }
+        }
 
 
 
